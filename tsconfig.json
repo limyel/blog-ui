@@ -32,7 +32,8 @@
       "@libs/*": ["src/libs/*"],
       "@plugins/*": ["src/plugins/*"],
       "@cp/*": ["src/components/*"],
-      "@views/*": ["src/views/*"]
+      "@views/*": ["src/views/*"],
+      "@api/*": ["scr/api/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],

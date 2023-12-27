@@ -15,6 +15,7 @@ export default defineConfig({
       '@plugins': resolve('src/plugins'),
       '@cp': resolve('src/components'),
       '@views': resolve('src/views'),
+      '@api': resolve('src/api')
     }
   }
 })
