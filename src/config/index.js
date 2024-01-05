@@ -18,5 +18,5 @@ const EnvConfig = {
     }
 }
 export default {
-    baseUrl: process.env.NODE_ENV === "production"? "http://localhost:8080": "http://localhost:8080"
+    baseUrl: process.env.NODE_ENV === "production"? "https://api.limyel.com": "http://localhost:8080"
 }
