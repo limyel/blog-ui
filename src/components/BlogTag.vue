@@ -1,12 +1,12 @@
 <template>
   <div class="section pt-0 pr-0">
-    <article class="panel is-info tag-container">
+    <article class="panel is-link tag-container">
       <p class="panel-heading">
         标签
       </p>
       <div class="panel-block pl-125em pr-125em is-flex is-justify-content-space-between"
            v-for="(tag, index) in tagList" :key="index">
-        <a class="is-block" :href="'/tag/' + tag.slug">
+        <a class="is-block" :href="'/tag/' + tag.id">
           {{tag.name}}
         </a>
         <div class="tag is-info">

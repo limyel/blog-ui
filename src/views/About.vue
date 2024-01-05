@@ -6,7 +6,7 @@
 
 <script setup>
 import {ref} from "vue";
-import {getAbout} from "@/api/setting";
+import {getAbout} from "../api/user";
 
 const about = ref('');
 

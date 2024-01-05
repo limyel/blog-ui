@@ -17,7 +17,7 @@
     <tr v-for="(tag, index) in tagList" :key="index">
       <th>{{tag.id}}</th>
       <td>
-        <a :href="'/tag/' + tag.slug">{{tag.name}}</a>
+        <a :href="'/tag/' + tag.id">{{tag.name}}</a>
       </td>
       <td>{{tag.postNum}}</td>
       <td>
@@ -47,7 +47,7 @@ const pageList = ref([]);
 
 function getTag(params) {
   getSysTagList(params).then(resp => {
-    tagList.value = resp.records;
+    tagList.value = resp.list;
     pages.value = resp.pages;
     current.value = resp.current;
 

@@ -60,7 +60,7 @@
             </a>
           </div>
         </div>
-        <a class="navbar-item" href="/settings">
+        <a class="navbar-item" href="/setting">
           Setting
         </a>
         <a class="navbar-item" @click="handleLogout">

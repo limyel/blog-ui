@@ -7,11 +7,11 @@
     <div class="is-flex is-justify-content-space-between">
       <div>
         标签：
-        <a class="tag is-link mr-1" :href="'/tag/' + tag.slug" v-for="(tag, index) in post.tagList" :key="index">
+        <a class="tag is-link mr-1" :href="'/tag/' + tag.id" v-for="(tag, index) in post.tags" :key="index">
           {{tag.name}}
         </a>
       </div>
-      <div>{{showYearMonthDay(post.createTime)}}</div>
+      <div>{{showTimeDetail(post.publishTime)}}</div>
     </div>
 
     <br />
@@ -32,7 +32,7 @@ import { useRoute } from "vue-router";
 const post = ref({});
 
 const route = useRoute();
-getPost(route.params['slug']).then(resp => {
+getPost(route.params['id']).then(resp => {
   post.value = resp;
 })
 </script>

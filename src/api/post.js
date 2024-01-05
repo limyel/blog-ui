@@ -1,15 +1,15 @@
 import request from "@/request";
 
 export function getPostList(params) {
-  return request.get('/post', {params});
+  return request.get('/main/post', {params});
 }
 
-export function getPost(slug) {
-  return request.get('/post/' + slug);
+export function getPost(id) {
+  return request.get('/main/post/' + id);
 }
 
 export function getArchive() {
-  return request.get('/post/archive');
+  return request.get('/main/post/archive');
 }
 
 export function addPost(data) {

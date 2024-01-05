@@ -2,11 +2,11 @@ import request from "@/request";
 import config from "@/config";
 
 export function getTagList() {
-  return request.get('/tag');
+  return request.get('/main/tag');
 }
 
-export function getTagDetail(slug) {
-  return request.get('/tag/' + slug);
+export function getTagDetail(id) {
+  return request.get('/main/tag/' + id);
 }
 
 export function addTag(data) {

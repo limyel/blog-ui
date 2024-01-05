@@ -10,7 +10,7 @@
       <th>ID</th>
       <th>Title</th>
       <th>Tag</th>
-      <th>CreateTime</th>
+      <th>Publish Time</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -18,14 +18,15 @@
       <tr v-for="(post, index) in postList" :key="index">
         <th>{{post.id}}</th>
         <td>
-          <a :href="'/post/' + post.slug">{{post.title}}</a>
+          <a :href="'/post/' + post.id">{{post.title}}</a>
         </td>
         <td>
-          <a class="tag mr-1" :href="'/tag/' + tag.slug" v-for="(tag, index) in post.tagList" :key="index">
+          <a class="tag mr-1" :href="'/tag/' + tag.id" v-for="(tag, index) in post.tags" :key="index">
             {{tag.name}}
           </a>
         </td>
-        <td>{{ showYearMonthDay(post.createTime) }}</td>
+        <td v-if="post.publishTime !== null">{{ showTimeDetail(post.publishTime) }}</td>
+        <td v-else>-</td>
         <td>
           <a class="tag is-link mr-1" :href="'/new/post?id=' + post.id">Edit</a>
           <a class="tag is-danger mr-1" @click="handleDelete(post.id)">Delete</a>
@@ -41,7 +42,7 @@
 import {ref} from "vue";
 import {getPages} from "@/utils/page-util";
 import Page from "@/components/Page.vue";
-import {showYearMonthDay} from "@/utils/DateTimeFormat";
+import {showTimeDetail} from "@/utils/DateTimeFormat";
 import {deletePost, getSysPostList} from "@/api/post";
 import {useRouter} from "vue-router";
 
@@ -54,7 +55,7 @@ const pageList = ref([]);
 
 function getPost(params) {
   getSysPostList(params).then(resp => {
-    postList.value = resp.records;
+    postList.value = resp.list;
     pages.value = resp.pages;
     current.value = resp.current;
 

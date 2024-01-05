@@ -20,7 +20,7 @@ const pageList = ref([]);
 
 function getPost(params) {
   getPostList(params).then(resp => {
-    postList.value = resp.records;
+    postList.value = resp.list;
     pages.value = resp.pages;
     current.value = resp.current;
 

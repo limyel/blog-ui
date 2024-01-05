@@ -23,23 +23,58 @@
   <div class="field" v-if="tagList.length > 0">
     <label class="label">Tag</label>
     <div class="select is-multiple">
-      <select multiple size="8" v-model="tagIdList">
+      <select multiple size="8" v-model="tagIds">
         <option :value="tag.id" v-for="(tag, index) in tagList" :key="index" @click="handle">{{tag.name}}</option>
       </select>
     </div>
   </div>
 
   <div class="field">
-    <label class="label">Status</label>
+    <label class="label">Draft</label>
     <div class="control">
       <label class="radio">
-        <input type="radio" name="question" value="1" :checked="status === 1" v-model="status">
-        Publish
+        <input type="radio" name="draft" value="true" :checked="draft === true" v-model="draft">
+        True
       </label>
       <label class="radio">
-        <input type="radio" name="question" value="0" :checked="status === 0" v-model="status">
-        Draft
+        <input type="radio" name="draft" value="false" :checked="draft === false" v-model="draft">
+        False
       </label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Comment</label>
+    <div class="control">
+      <label class="radio">
+        <input type="radio" name="comment" value="true" :checked="comment === true" v-model="comment">
+        True
+      </label>
+      <label class="radio">
+        <input type="radio" name="comment" value="false" :checked="comment === false" v-model="comment">
+        False
+      </label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Top</label>
+    <div class="control">
+      <label class="radio">
+        <input type="radio" name="top" value="true" :checked="top === true" v-model="top">
+        True
+      </label>
+      <label class="radio">
+        <input type="radio" name="top" value="false" :checked="top === false" v-model="top">
+        False
+      </label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Publish Time(millisecond)</label>
+    <div class="control">
+      <input class="input" type="number" v-model="publishTime" />
     </div>
   </div>
 
@@ -68,8 +103,11 @@ const route = useRoute();
 
 const title = ref('');
 const description = ref('');
-const status = ref(0);
-const tagIdList = ref([]);
+const draft = ref(false);
+const comment = ref(false);
+const top = ref(false);
+const publishTime = ref(null);
+const tagIds = ref([]);
 const content = ref('');
 const isEdit = ref(false);
 
@@ -80,12 +118,14 @@ getTagAll().then(resp => {
 function handleSubmit() {
   if (isEdit.value) {
     updatePost({id: id, title: title.value, description: description.value,
-      status: status.value, tagIdList: tagIdList.value, content: content.value}).then(resp => {
+      draft: draft.value, comment: comment.value, top: top.value, tagIds: tagIds.value,
+      publishTime: publishTime.value, content: content.value}).then(resp => {
       router.push('/manage/post');
     })
   } else {
     addPost({title: title.value, description: description.value,
-      status: status.value, tagIdList: tagIdList.value, content: content.value}).then(resp => {
+      draft: draft.value, comment: comment.value, top: top.value, tagIds: tagIds.value,
+      publishTime: publishTime.value, content: content.value}).then(resp => {
       router.push('/manage/post');
     })
   }
@@ -98,8 +138,11 @@ if (id !== null && id !== undefined) {
   getSysPost(id).then(resp => {
     title.value = resp.title;
     description.value = resp.description;
-    status.value = resp.status;
-    tagIdList.value = resp.tagIdList;
+    draft.value = resp.draft;
+    comment.value = resp.comment
+    top.value = resp.top
+    publishTime.value = resp.publishTime
+    tagIds.value = resp.tagIds;
     content.value = resp.content;
   })
 }

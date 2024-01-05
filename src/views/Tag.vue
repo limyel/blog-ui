@@ -26,7 +26,7 @@ const tagName = ref('');
 const tagId = ref(null);
 const postList = ref([]);
 
-getTagDetail(route.params['slug']).then(resp => {
+getTagDetail(route.params['id']).then(resp => {
   tagName.value = resp.name;
   tagId.value = resp.id;
 })
@@ -35,9 +35,9 @@ const pages = ref(1);
 const current = ref(1);
 const pageList = ref([]);
 function getPost(params) {
-  params.tagId = tagId.value;
+  params.tagId = route.params['id'];
   getPostList(params).then(resp => {
-    postList.value = resp.records;
+    postList.value = resp.list;
     pages.value = resp.pages;
     current.value = resp.current;
 

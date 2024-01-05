@@ -19,12 +19,12 @@ const routes = [
       },
       {
         name: "Post",
-        path: "/post/:slug",
+        path: "/post/:id",
         component: () => import("@/views/Post.vue"),
       },
       {
         name: "Tag",
-        path: "/tag/:slug",
+        path: "/tag/:id",
         component: () => import("@/views/Tag.vue"),
       },
       {
@@ -41,11 +41,6 @@ const routes = [
         name: "message",
         path: "/message",
         component: () => import("@/views/Message.vue"),
-      },
-      {
-        name: 'Now',
-        path: '/now',
-        component: () => import('@/views/Now.vue')
       }
     ],
   },
@@ -65,11 +60,6 @@ const routes = [
     component: () => import('@/views/NewTag.vue')
   },
   {
-    name: 'NewNow',
-    path: '/new/now',
-    component: () => import('@/views/new/NewNow.vue')
-  },
-  {
     name: 'ManagePost',
     path: '/manage/post',
     component: () => import('@/views/ManagePost.vue')
@@ -80,14 +70,9 @@ const routes = [
     component: () => import('@/views/ManageTag.vue')
   },
   {
-    name: 'ManageNow',
-    path: '/manage/now',
-    component: () => import('@/views/manage/ManageNow.vue')
-  },
-  {
-    name: 'Settings',
-    path: '/settings',
-    component: () => import('@/views/new/NewSetting.vue')
+    name: 'Setting',
+    path: '/setting',
+    component: () => import('@/views/Setting.vue')
   }
 ];
 const router = createRouter({

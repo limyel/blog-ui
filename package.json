@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "bulma": "^0.9.4",
     "element-plus": "^2.2.12",
+    "highlight.js": "^11.9.0",
     "js-cookie": "^3.0.5",
     "pinia": "^2.0.16",
     "sass": "^1.53.0",

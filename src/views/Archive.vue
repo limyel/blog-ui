@@ -7,10 +7,10 @@
       <div class="archive-posts">
         <div class="archive-post" v-for="(item, index) in archive[year]" :key="index">
           <div class="time">
-            {{showMonthDay(item.createTime)}}
+            {{showMonthDay(item.publishTime)}}
           </div>
           <div>
-            <router-link :to="{name: 'Post', params: {slug: item.slug}}">{{item.title}}</router-link>
+            <router-link :to="{name: 'Post', params: {id: item.id}}">{{item.title}}</router-link>
           </div>
         </div>
       </div>
