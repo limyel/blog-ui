@@ -36,9 +36,6 @@
             <a class="navbar-item" href="/new/tag">
               Tag
             </a>
-            <a class="navbar-item" href="/new/now">
-              Now
-            </a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
@@ -51,9 +48,6 @@
             </a>
             <a class="navbar-item" href="/manage/tag">
               Tag
-            </a>
-            <a class="navbar-item" href="/manage/now">
-              Now
             </a>
             <a class="navbar-item">
               Message
