@@ -44,11 +44,14 @@ export function showTimeDetail(timeStamp) {
 export function showMonthDay(timeStamp) {
     let ts = new Date(timeStamp);
     let day = ts.getDate();
-    let dayStr = day.toString();
-    if (day / 10 === 0) {
-        dayStr = '0' + dayStr;
+    let month = ts.getMonth()+1
+    if (day / 10 < 1) {
+        day = '0' + day;
     }
-    return (ts.getMonth()+1) + '-' + dayStr;
+    if (month / 10 < 1) {
+        month = '0' + month;
+    }
+    return month + '-' + day;
 }
 
 export function showMonthDayLocal(timestamp) {
