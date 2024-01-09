@@ -26,7 +26,9 @@ loadAbout()
 
 function loadAbout() {
   getSysAbout().then(resp => {
-    about.value = resp;
+    if (resp !== null) {
+      about.value = resp;
+    }
   })
 }
 
