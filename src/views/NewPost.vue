@@ -44,20 +44,6 @@
   </div>
 
   <div class="field">
-    <label class="label">Comment</label>
-    <div class="control">
-      <label class="radio">
-        <input type="radio" name="comment" value="true" :checked="comment === true" v-model="comment">
-        True
-      </label>
-      <label class="radio">
-        <input type="radio" name="comment" value="false" :checked="comment === false" v-model="comment">
-        False
-      </label>
-    </div>
-  </div>
-
-  <div class="field">
     <label class="label">Top</label>
     <div class="control">
       <label class="radio">
@@ -104,7 +90,6 @@ const route = useRoute();
 const title = ref('');
 const description = ref('');
 const draft = ref(false);
-const comment = ref(false);
 const top = ref(false);
 const publishTime = ref(null);
 const tagIds = ref([]);
@@ -118,13 +103,13 @@ getTagAll().then(resp => {
 function handleSubmit() {
   if (isEdit.value) {
     updatePost({id: id, title: title.value, description: description.value,
-      draft: draft.value, comment: comment.value, top: top.value, tagIds: tagIds.value,
+      draft: draft.value, top: top.value, tagIds: tagIds.value,
       publishTime: publishTime.value, content: content.value}).then(resp => {
       router.push('/manage/post');
     })
   } else {
     addPost({title: title.value, description: description.value,
-      draft: draft.value, comment: comment.value, top: top.value, tagIds: tagIds.value,
+      draft: draft.value, top: top.value, tagIds: tagIds.value,
       publishTime: publishTime.value, content: content.value}).then(resp => {
       router.push('/manage/post');
     })
@@ -139,7 +124,6 @@ if (id !== null && id !== undefined) {
     title.value = resp.title;
     description.value = resp.description;
     draft.value = resp.draft;
-    comment.value = resp.comment
     top.value = resp.top
     publishTime.value = resp.publishTime
     tagIds.value = resp.tagIds;
