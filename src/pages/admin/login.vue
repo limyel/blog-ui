@@ -23,7 +23,8 @@
                         <el-input v-model="form.username" size="large" placeholder="请输入用户名" :prefix-icon="User" clearable />
                     </el-form-item>
                     <el-form-item prop="password">
-                        <el-input v-model="form.password" size="large" placeholder="请输入密码" :prefix-icon="Lock" clearable type="password" />
+                        <el-input v-model="form.password" size="large" placeholder="请输入密码" :prefix-icon="Lock"
+                                  clearable type="password" show-password />
                     </el-form-item>
                     <el-form-item>
                         <el-button @click="onSubmit" :loading="loading" class="w-full" size="large" type="primary">登录</el-button>
