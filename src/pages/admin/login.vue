@@ -26,7 +26,7 @@
                         <el-input v-model="form.password" size="large" placeholder="请输入密码" :prefix-icon="Lock" clearable type="password" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button @click="onSubmit" class="w-full" size="large" type="primary">登录</el-button>
+                        <el-button @click="onSubmit" :loading="loading" class="w-full" size="large" type="primary">登录</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -36,9 +36,11 @@
 
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
-import {reactive, ref} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import {login} from "@/api/admin/user.js";
 import {useRouter} from "vue-router";
+import {showMessage} from "@/composables/util.js";
+import {setToken} from "@/composables/auth.js";
 
 const router = useRouter()
 
@@ -60,6 +62,9 @@ const rules = {
   ]
 }
 
+// 登录按钮加载
+const loading = ref(false)
+
 const form = reactive({
   username: '',
   password: ''
@@ -72,13 +77,43 @@ const onSubmit = () => {
       return false
     }
 
+    loading.value = true
+
     login(form.username, form.password).then(resp => {
       console.log(resp);
       if (resp.data.code === 'Success') {
+        showMessage('登录成功')
+
+        // 存储 Token
+        let token = resp.data.data.token
+        setToken(token)
+
+        // 跳转到后台首页
         router.push("/admin/index")
+      } else {
+        let msg = resp.data.msg
+        showMessage(msg, 'error')
       }
+    }).finally(() => {
+      loading.value = false
     })
   })
 }
+
+function onKeyUp(e) {
+  if (e.key === 'Enter') {
+    onSubmit()
+  }
+}
+
+onMounted(() => {
+  // 添加键盘监听
+  document.addEventListener('keyup', onKeyUp)
+})
+
+onBeforeUnmount(() => {
+  // 移除键盘监听
+  document.removeEventListener('keyup', onKeyUp)
+})
 
 </script>
