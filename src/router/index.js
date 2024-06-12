@@ -15,6 +15,9 @@ const routes = [
     {
         path: "/login",
         component: Login,
+        meta: {
+            title: '登录'
+        }
     },
     {
         path: "/admin/index",

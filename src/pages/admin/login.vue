@@ -80,18 +80,17 @@ const onSubmit = () => {
     loading.value = true
 
     login(form.username, form.password).then(resp => {
-      console.log(resp);
-      if (resp.data.code === 'Success') {
+      if (resp.code === 'Success') {
         showMessage('登录成功')
 
         // 存储 Token
-        let token = resp.data.data.token
+        let token = resp.data.token
         setToken(token)
 
         // 跳转到后台首页
         router.push("/admin/index")
       } else {
-        let msg = resp.data.msg
+        let msg = resp.msg
         showMessage(msg, 'error')
       }
     }).finally(() => {
