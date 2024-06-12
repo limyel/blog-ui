@@ -10,7 +10,7 @@ dependencies:
     version: 2.3.1(vue@3.4.27)
   '@vueuse/integrations':
     specifier: ^10.10.1
-    version: 10.10.1(axios@1.7.2)(universal-cookie@7.1.4)(vue@3.4.27)
+    version: 10.10.1(axios@1.7.2)(nprogress@0.2.0)(universal-cookie@7.1.4)(vue@3.4.27)
   animate.css:
     specifier: ^4.1.1
     version: 4.1.1
@@ -23,6 +23,9 @@ dependencies:
   flowbite:
     specifier: ^2.3.0
     version: 2.3.0
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   universal-cookie:
     specifier: ^7.1.4
     version: 7.1.4
@@ -684,7 +687,7 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/integrations@10.10.1(axios@1.7.2)(universal-cookie@7.1.4)(vue@3.4.27):
+  /@vueuse/integrations@10.10.1(axios@1.7.2)(nprogress@0.2.0)(universal-cookie@7.1.4)(vue@3.4.27):
     resolution: {integrity: sha512-b4iPz4NLk2g5u9GNgTpYqNN1pzYWPpIglHTg6eDjJwKB7OfzJP4m5kQlzn2oRH7U0OlEOCVPrdDfqneuS9YNTg==}
     peerDependencies:
       async-validator: '*'
@@ -728,6 +731,7 @@ packages:
       '@vueuse/core': 10.10.1(vue@3.4.27)
       '@vueuse/shared': 10.10.1(vue@3.4.27)
       axios: 1.7.2
+      nprogress: 0.2.0
       universal-cookie: 7.1.4
       vue-demi: 0.14.8(vue@3.4.27)
     transitivePeerDependencies:
@@ -1382,6 +1386,10 @@ packages:
 
   /normalize-wheel-es@1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
+    dev: false
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
     dev: false
 
   /object-assign@4.1.1:

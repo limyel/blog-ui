@@ -1,5 +1,8 @@
 import '@/assets/main.css'
+// element plus 样式
 import 'element-plus/dist/index.css'
+// 页面加载样式
+import 'nprogress/nprogress.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
