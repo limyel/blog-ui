@@ -18,11 +18,11 @@
                     <span>账号密码登录</span>
                     <span class="h-[1px] w-16 bg-gray-200" />
                 </div>
-                <el-form class="w-5/6 md:w-2/5" >
-                    <el-form-item>
+                <el-form class="w-5/6 md:w-2/5" ref="formRef" :rules="rules" :model="form" >
+                    <el-form-item prop="username">
                         <el-input v-model="form.username" size="large" placeholder="请输入用户名" :prefix-icon="User" clearable />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item prop="password">
                         <el-input v-model="form.password" size="large" placeholder="请输入密码" :prefix-icon="Lock" clearable type="password" />
                     </el-form-item>
                     <el-form-item>
@@ -36,8 +36,29 @@
 
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import {login} from "@/api/admin/user.js";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+
+const formRef = ref(null);
+const rules = {
+  username: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      tigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '密码不能为空',
+      tigger: 'blur'
+    }
+  ]
+}
 
 const form = reactive({
   username: '',
@@ -45,8 +66,19 @@ const form = reactive({
 })
 
 const onSubmit = () => {
-  login(form.username, form.password).then(resp => {
-    console.log(resp);
+  formRef.value.validate(valid => {
+    if (!valid) {
+      console.log('表单验证不通过')
+      return false
+    }
+
+    login(form.username, form.password).then(resp => {
+      console.log(resp);
+      if (resp.data.code === 'Success') {
+        router.push("/admin/index")
+      }
+    })
   })
 }
+
 </script>
