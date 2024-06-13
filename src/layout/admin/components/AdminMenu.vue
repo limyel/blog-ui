@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-slate-800 h-screen text-white">
+  <div class="bg-slate-800 h-screen text-white transition-all" :style="{ width: menuStore.menuWidth }">
     <div class="flex items-center justify-center h-[64px]">
       Blog
     </div>
 
-    <el-menu :default-active="defaultActive" class="el-menu-vertical-demo" @select="handleSelect">
+    <el-menu :default-active="defaultActive" @select="handleSelect" :collapse="isCollapse" :collapse-transition="false">
       <template v-for="(item, index) in menus" :key="index">
         <el-menu-item :index="item.path">
           <el-icon>
@@ -19,7 +19,8 @@
 
 <script setup>
 import {useRoute, useRouter} from "vue-router";
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {useMenuStore} from "@/stores/menu.js";
 
 const menus = [
   {
@@ -47,12 +48,17 @@ const menus = [
 const route = useRoute()
 const router = useRouter()
 
+const menuStore = useMenuStore()
+
 const defaultActive = ref(route.path)
 
 // 菜单选择事件
 const handleSelect = path => {
   router.push(path)
 }
+
+// 是否折叠菜单
+const isCollapse = computed(() => !(menuStore.menuWidth === '250px'))
 </script>
 
 <style scoped>

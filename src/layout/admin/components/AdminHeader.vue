@@ -2,9 +2,11 @@
   <div class="bg-white h-[64px] flex pr-4 border-b border-slate-200">
     <!-- 左边栏收缩、展开 -->
     <!-- 套一层 div，避免 Element Plus 内部样式覆盖 Tailwind -->
-    <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200">
+    <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200"
+        @click="handleMenuWidth">
       <el-icon>
-        <Fold />
+        <Fold v-if="menuStore.menuWidth === '250px'" />
+        <Expand v-else />
       </el-icon>
     </div>
 
@@ -37,3 +39,13 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import {useMenuStore} from "@/stores/menu.js";
+
+const menuStore = useMenuStore()
+
+const handleMenuWidth = () => {
+  menuStore.handleMenuWidth()
+}
+</script>
