@@ -11,11 +11,23 @@
     </div>
 
     <div class="ml-auto flex">
-      <!-- 全屏展示 -->
-      <el-tooltip class="box-item" effect="dark" content="全屏" placement="bottom">
-        <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 mr-2 hover:bg-gray-200">
+      <!-- 点击刷新页面 -->
+      <el-tooltip class="box-item" effect="dark" content="刷新" placement="bottom">
+        <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200"
+             @click="handleRefresh">
           <el-icon>
-            <FullScreen />
+            <Refresh />
+          </el-icon>
+        </div>
+      </el-tooltip>
+
+      <!-- 全屏展示 -->
+      <el-tooltip class="box-item" effect="dark" content="全屏" placement="bottom" auto-close="2000">
+        <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 mr-2 hover:bg-gray-200"
+            @click="toggle">
+          <el-icon>
+            <FullScreen v-if="!isFullscreen" />
+            <Aim v-else />
           </el-icon>
         </div>
       </el-tooltip>
@@ -42,10 +54,17 @@
 
 <script setup>
 import {useMenuStore} from "@/stores/menu.js";
+import {useFullscreen} from "@vueuse/core";
 
 const menuStore = useMenuStore()
 
+// 处理菜单收缩、展开
 const handleMenuWidth = () => {
   menuStore.handleMenuWidth()
 }
+
+const handleRefresh = () => location.reload()
+
+// 全屏
+const { isFullscreen, toggle } = useFullscreen()
 </script>
