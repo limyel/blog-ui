@@ -1,6 +1,7 @@
 import Index from "@/pages/frontend/index.vue"
 import Login from "@/pages/admin/login.vue"
 import AdminIndex from "@/pages/admin/index.vue"
+import Admin from "@/layout/admin/admin.vue"
 import { createRouter } from "vue-router"
 import { createWebHistory } from "vue-router"
 
@@ -20,11 +21,17 @@ const routes = [
         }
     },
     {
-        path: "/admin/index",
-        component: AdminIndex,
-        meta: {
-            title: 'Admin 后台首页'
-        }
+        path: "/admin",
+        component: Admin,
+        children: [
+            {
+                path: '/admin/index',
+                component: AdminIndex,
+                meta: {
+                    title: 'Admin 后台首页'
+                }
+            }
+        ]
     }
 ]
 
