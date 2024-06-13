@@ -1,6 +1,9 @@
 import Index from "@/pages/frontend/index.vue"
 import Login from "@/pages/admin/login.vue"
 import AdminIndex from "@/pages/admin/index.vue"
+import AdminPostList from "@/pages/admin/post-list.vue"
+import AdminTagList from "@/pages/admin/tag-list.vue"
+import AdminBlogSetting from "@/pages/admin/blog-setting.vue"
 import Admin from "@/layout/admin/admin.vue"
 import { createRouter } from "vue-router"
 import { createWebHistory } from "vue-router"
@@ -28,7 +31,28 @@ const routes = [
                 path: '/admin/index',
                 component: AdminIndex,
                 meta: {
-                    title: 'Admin 后台首页'
+                    title: '仪表盘'
+                }
+            },
+            {
+                path: '/admin/post/list',
+                component: AdminPostList,
+                meta: {
+                    title: '文章管理'
+                }
+            },
+            {
+                path: '/admin/tag/list',
+                component: AdminTagList,
+                meta: {
+                    title: '标签管理'
+                }
+            },
+            {
+                path: '/admin/blog/setting',
+                component: AdminBlogSetting,
+                meta: {
+                    title: '博客设置'
                 }
             }
         ]
