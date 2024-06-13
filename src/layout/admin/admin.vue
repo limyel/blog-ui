@@ -36,3 +36,13 @@ import AdminHeader from "@/layout/admin/components/AdminHeader.vue";
 import AdminTagList from "@/layout/admin/components/AdminTagList.vue";
 import AdminFooter from "@/layout/admin/components/AdminFooter.vue";
 </script>
+
+<style scoped>
+.el-header {
+  padding: 0!important;
+}
+
+:deep(.el-tooltip__trigger:focus-visible) {
+  outline: unset;
+}
+</style>
