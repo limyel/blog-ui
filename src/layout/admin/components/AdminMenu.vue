@@ -50,7 +50,9 @@ const router = useRouter()
 
 const menuStore = useMenuStore()
 
-const defaultActive = ref(route.path)
+// todo
+// const defaultActive = ref(route.path)
+const defaultActive = computed(() => route.path)
 
 // 菜单选择事件
 const handleSelect = path => {

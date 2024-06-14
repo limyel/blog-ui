@@ -1,8 +1,11 @@
 import {useCookies} from "@vueuse/integrations/useCookies";
 
+const cookie = useCookies()
+
+
+// ==================== Token 令牌 ====================
 // 存储在 Cookie 中的 Token 的 Key
 const TOKEN_KEY = 'Authorization'
-const cookie = useCookies()
 
 // 获取 Token 值
 export function getToken() {
@@ -17,4 +20,16 @@ export function setToken(token) {
 // 删除 Token
 export function removeToken() {
     return cookie.remove(TOKEN_KEY)
+}
+
+
+// ==================== 标签 ====================
+const TAB_LIST_KEY = 'tabList'
+
+export function getTabList() {
+    return cookie.get(TAB_LIST_KEY)
+}
+
+export function setTabList(tabList) {
+    return cookie.set(TAB_LIST_KEY, tabList, {path: '/'})
 }

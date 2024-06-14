@@ -48,4 +48,8 @@ const menuStore = useMenuStore()
 :deep(.el-tooltip__trigger:focus-visible) {
   outline: unset;
 }
+
+.el-footer {
+  padding: 0!important;
+}
 </style>

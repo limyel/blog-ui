@@ -2,15 +2,15 @@
   <div class="fixed top-[64px] h-[44px] px-2 right-0 z-50 flex items-center bg-white transition-all duration-300 shadow"
        :style="{left: menuStore.menuWidth}">
     <!-- 标签导航栏 -->
-    <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab"
-             style="min-width: 10px;">
-      <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+    <el-tabs v-model="activeTab" type="card" @tab-remove="removeTab" @tab-change="tabChange" style="min-width: 10px;">
+      <el-tab-pane v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path"
+                   :closable="item.path !== '/admin/index'">
       </el-tab-pane>
     </el-tabs>
 
     <!-- 下拉菜单 -->
     <span class="ml-auto flex items-center justify-center h-[32px] w-[32px]">
-      <el-dropdown>
+      <el-dropdown @command="handleCloseTab">
           <span class="el-dropdown-link">
               <el-icon class="el-icon--right">
                   <arrow-down/>
@@ -18,8 +18,8 @@
           </span>
           <template #dropdown>
               <el-dropdown-menu>
-                  <el-dropdown-item>关闭其他</el-dropdown-item>
-                  <el-dropdown-item>关闭全部</el-dropdown-item>
+                  <el-dropdown-item command="closeOthers">关闭其他</el-dropdown-item>
+                  <el-dropdown-item command="closeAll">关闭全部</el-dropdown-item>
               </el-dropdown-menu>
           </template>
       </el-dropdown>
@@ -32,55 +32,92 @@
 <script setup>
 import {ref} from "vue";
 import {useMenuStore} from "@/stores/menu.js";
+import {onBeforeRouteUpdate, useRoute, useRouter} from "vue-router";
+import {getTabList, setTabList} from "@/composables/cookie.js";
+
+const route = useRoute()
+const router = useRouter()
 
 const menuStore = useMenuStore()
 
-let tabIndex = 2
-const editableTabsValue = ref('2')
-const editableTabs = ref([
+const activeTab = ref(route.path)
+const tabList = ref([
   {
-    title: 'Tab 1',
-    name: '1',
-    content: 'Tab 1 content',
-  },
-  {
-    title: 'Tab 2',
-    name: '2',
-    content: 'Tab 2 content',
+    title: '仪表盘',
+    path: "/admin/index"
   }
 ])
 
 // 添加新的标签
-const addTab = targetName => {
-  const newTabName = `${++tabIndex}`
-  editableTabs.value.push({
-    title: 'New Tab',
-    name: newTabName,
-    content: 'New Tab Content'
-  })
-  editableTabsValue.value = newTabName
+function addTab(tab) {
+  let isTabNotExist = tabList.value.findIndex(item => item.path === tab.path) === -1
+  if (isTabNotExist) {
+    tabList.value.push(tab)
+  }
+  setTabList(tabList.value)
 }
 
 // 删除标签
-const removeTab = (targetName) => {
-  const tabs = editableTabs.value
-  let activeName = editableTabsValue.value
+const removeTab = (targetPath) => {
+  let tabs = tabList.value
+  let activePath = activeTab.value
+
   // 如果关闭的是当前标签，则跳转到当前标签的后一个或前一个标签
-  if (activeName === targetName) {
+  if (activePath === targetPath) {
     tabs.forEach((tab, index) => {
-      if (tab.name === targetName) {
+      if (tab.path === targetPath) {
         const nextTab = tabs[index + 1] || tabs[index - 1]
         if (nextTab) {
-          activeName = nextTab.name
+          activePath = nextTab.path
         }
       }
     })
   }
 
-  editableTabsValue.value = activeName
+  activeTab.value = activePath
   // 移除标签
-  editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
+  tabList.value = tabs.filter((tab) => tab.path !== targetPath)
+  setTabList(tabList.value)
+  tabChange(activeTab.value)
 }
+
+// 标签切换事件
+const tabChange = path => {
+  activeTab.value = path
+  router.push(path)
+}
+
+// 初始化标签
+function initTabList() {
+  let tabs = getTabList()
+  if (tabs) {
+    tabList.value = tabs
+  }
+}
+initTabList()
+
+const handleCloseTab = command => {
+  let indexPath = '/admin/index'
+  if (command === 'closeOthers') {
+    // 关闭其他标签
+    tabList.value = tabList.value.filter(tab => tab.path === indexPath || tab.path === activeTab.value)
+  } else if (command === 'closeAll') {
+    // 关闭所有标签
+    activeTab.value = indexPath
+    tabList.value = tabList.value.filter(tab => tab.path === indexPath)
+    tabChange(activeTab.value)
+  }
+  setTabList(tabList.value)
+}
+
+onBeforeRouteUpdate((to, from) => {
+  activeTab.value = to.path
+  addTab({
+    title: to.meta.title,
+    path: to.path
+  })
+})
+
 </script>
 
 <style>
