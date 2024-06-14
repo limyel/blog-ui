@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white h-[64px] flex pr-4 border-b border-slate-200">
+  <div class="bg-white h-[64px] flex pr-4 border-b border-slate-100">
     <!-- 左边栏收缩、展开 -->
     <!-- 套一层 div，避免 Element Plus 内部样式覆盖 Tailwind -->
     <div class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200"
@@ -33,7 +33,7 @@
       </el-tooltip>
 
       <!-- 登录用户头像 -->
-      <el-dropdown>
+      <el-dropdown class="flex items-center justify-center">
         <span class="el-dropdown-link flex items-center justify-center text-gray-700 text-xs">
           <el-avatar class="mr-2" :size="25" src="https://img.quanxiaoha.com/quanxiaoha/f97361c0429d4bb1bc276ab835843065.jpg" />
           Admin
