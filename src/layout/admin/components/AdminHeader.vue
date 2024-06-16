@@ -33,7 +33,7 @@
       </el-tooltip>
 
       <!-- 登录用户头像 -->
-      <el-dropdown class="flex items-center justify-center">
+      <el-dropdown class="flex items-center justify-center" @command="handleCommand">
         <span class="el-dropdown-link flex items-center justify-center text-gray-700 text-xs">
           <el-avatar class="mr-2" :size="25" src="https://img.quanxiaoha.com/quanxiaoha/f97361c0429d4bb1bc276ab835843065.jpg" />
           {{ userStore.userInfo.username }}
@@ -43,8 +43,8 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item command="updatePassword">修改密码</el-dropdown-item>
+            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -56,6 +56,8 @@
 import {useMenuStore} from "@/stores/menu.js";
 import {useFullscreen} from "@vueuse/core";
 import {useUserStore} from "@/stores/user.js";
+import {showMessage, showModel} from "@/composables/util.js";
+import router from "@/router/index.js";
 
 const menuStore = useMenuStore()
 const userStore = useUserStore()
@@ -69,4 +71,20 @@ const handleRefresh = () => location.reload()
 
 // 全屏
 const { isFullscreen, toggle } = useFullscreen()
+
+// 下拉菜单事件处理
+const handleCommand = command => {
+  if (command === 'updatePassword') {
+
+  } else if (command === 'logout') {
+    logout()
+  }
+}
+function logout() {
+  showModel('是否确认退出登录？').then(() => {
+    userStore.logout()
+    showMessage('退出登录成功！')
+    router.push('/login')
+  })
+}
 </script>
