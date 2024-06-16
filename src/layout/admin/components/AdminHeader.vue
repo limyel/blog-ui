@@ -36,7 +36,7 @@
       <el-dropdown class="flex items-center justify-center">
         <span class="el-dropdown-link flex items-center justify-center text-gray-700 text-xs">
           <el-avatar class="mr-2" :size="25" src="https://img.quanxiaoha.com/quanxiaoha/f97361c0429d4bb1bc276ab835843065.jpg" />
-          Admin
+          {{ userStore.userInfo.username }}
           <el-icon class="el-icon--right">
               <arrow-down />
           </el-icon>
@@ -55,8 +55,10 @@
 <script setup>
 import {useMenuStore} from "@/stores/menu.js";
 import {useFullscreen} from "@vueuse/core";
+import {useUserStore} from "@/stores/user.js";
 
 const menuStore = useMenuStore()
+const userStore = useUserStore()
 
 // 处理菜单收缩、展开
 const handleMenuWidth = () => {

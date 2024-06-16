@@ -19,7 +19,13 @@
         <AdminTagList></AdminTagList>
 
         <!-- 主内容 -->
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <Transition>
+            <KeepAlive :max="10">
+              <component :is="Component"></component>
+            </KeepAlive>
+          </Transition>
+        </router-view>
       </el-main>
 
       <!-- 底部容器 -->

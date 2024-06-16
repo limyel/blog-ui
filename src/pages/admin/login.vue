@@ -42,8 +42,10 @@ import {login} from "@/api/admin/user.js";
 import {useRouter} from "vue-router";
 import {showMessage} from "@/composables/util.js";
 import {setToken} from "@/composables/cookie.js";
+import {useUserStore} from "@/stores/user.js";
 
 const router = useRouter()
+const userStore = useUserStore()
 
 const formRef = ref(null);
 const rules = {
@@ -87,6 +89,9 @@ const onSubmit = () => {
         // 存储 Token
         let token = resp.data.token
         setToken(token)
+
+        // 获取当前用户信息
+        userStore.setCurrentUserInfo()
 
         // 跳转到后台首页
         router.push("/admin/index")
