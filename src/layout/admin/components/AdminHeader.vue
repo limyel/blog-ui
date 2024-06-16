@@ -50,6 +50,31 @@
       </el-dropdown>
     </div>
   </div>
+
+  <!-- 修改密码 -->
+  <el-dialog v-model="dialogVisible" title="修改密码" width="40%" :draggable ="true" :close-on-click-modal="false" :close-on-press-escape="false">
+    <el-form ref="formRef" :rules="rules" :model="form">
+      <el-form-item label="用户名" prop="username" label-width="120px">
+        <el-input size="large" v-model="form.username" placeholder="请输入用户名" clearable disabled />
+      </el-form-item>
+      <el-form-item label="密码" prop="password" label-width="120px">
+        <el-input size="large" type="password" v-model="form.password" placeholder="请输入密码"
+                  clearable show-password />
+      </el-form-item>
+      <el-form-item label="确认密码" prop="rePassword" label-width="120px">
+        <el-input size="large" type="password" v-model="form.rePassword" placeholder="请确认密码"
+                  clearable show-password />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="onSubmit">
+                    提交
+                </el-button>
+            </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -58,6 +83,8 @@ import {useFullscreen} from "@vueuse/core";
 import {useUserStore} from "@/stores/user.js";
 import {showMessage, showModel} from "@/composables/util.js";
 import router from "@/router/index.js";
+import {ref, computed} from "vue";
+import {updatePassword} from "@/api/admin/user.js";
 
 const menuStore = useMenuStore()
 const userStore = useUserStore()
@@ -73,9 +100,10 @@ const handleRefresh = () => location.reload()
 const { isFullscreen, toggle } = useFullscreen()
 
 // 下拉菜单事件处理
+const dialogVisible = ref(false)
 const handleCommand = command => {
   if (command === 'updatePassword') {
-
+    dialogVisible.value = true
   } else if (command === 'logout') {
     logout()
   }
@@ -85,6 +113,60 @@ function logout() {
     userStore.logout()
     showMessage('退出登录成功！')
     router.push('/login')
+  })
+}
+const formRef = ref(null)
+// todo
+const username = computed(() => userStore.userInfo.username)
+const form = ref({
+  username: username,
+  password: '',
+  rePassword: ''
+})
+const rules = {
+  username: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      tigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '密码不能为空',
+      trigger: 'blur',
+    },
+  ],
+  rePassword: [
+    {
+      required: true,
+      message: '确认密码不能为空',
+      trigger: 'blur',
+    },
+  ]
+}
+const onSubmit = () => {
+  formRef.value.validate((valid) => {
+    if (!valid) {
+      return false
+    }
+
+    if (form.value.password !== form.value.rePassword) {
+      showMessage('两次密码不一致！')
+    }
+
+    updatePassword(form.value).then(resp => {
+      if (resp.code === 'Success') {
+        showMessage('密码重置成功，请重新登录！')
+        userStore.logout()
+        dialogVisible.value = false
+        router.push('/login')
+      } else {
+        let msg = resp.msg
+        showMessage(msg, 'error')
+      }
+    })
   })
 }
 </script>

@@ -22,7 +22,7 @@ export const useUserStore = defineStore('user', () => {
         userInfo.value = {}
     }
 
-    return { userInfo, setCurrentUserInfo, logout}
+    return { userInfo, setCurrentUserInfo, logout }
 },
 {
     // 开启持久化

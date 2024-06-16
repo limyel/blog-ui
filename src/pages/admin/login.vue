@@ -45,7 +45,6 @@ import {setToken} from "@/composables/cookie.js";
 import {useUserStore} from "@/stores/user.js";
 
 const router = useRouter()
-const userStore = useUserStore()
 
 const formRef = ref(null);
 const rules = {
@@ -76,7 +75,6 @@ const form = reactive({
 const onSubmit = () => {
   formRef.value.validate(valid => {
     if (!valid) {
-      console.log('表单验证不通过')
       return false
     }
 
@@ -120,5 +118,7 @@ onBeforeUnmount(() => {
   // 移除键盘监听
   document.removeEventListener('keyup', onKeyUp)
 })
+
+const userStore = useUserStore()
 
 </script>
