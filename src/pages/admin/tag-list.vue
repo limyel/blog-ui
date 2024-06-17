@@ -22,7 +22,7 @@
     <el-card shadow="never">
       <!-- 新增按钮 -->
       <div class="mb-5">
-        <el-button type="primary" @click="dialogVisible = true">
+        <el-button type="primary" @click="addTagBtnClick">
           <el-icon class="mr-1">
             <Plus/>
           </el-icon>
@@ -56,8 +56,7 @@
   </div>
 
   <!-- 添加标签 -->
-  <el-dialog v-model="dialogVisible" title="添加标签" width="40%" :draggable="true" :close-on-click-modal="false"
-             :close-on-press-escape="false">
+  <FormDialog ref="formDialogRef" title="添加标签" destroyOnClose @submit="onSubmit">
     <el-form ref="formRef" :rules="rules" :model="form">
       <el-form-item label="标签名" prop="name" label-width="120px">
         <el-input size="large" v-model="form.name" placeholder="请输入标签名" clearable/>
@@ -69,15 +68,7 @@
         <el-input size="large" v-model="form.remark" placeholder="请确认备注" clearable/>
       </el-form-item>
     </el-form>
-    <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="dialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="onSubmit">
-                    提交
-                </el-button>
-            </span>
-    </template>
-  </el-dialog>
+  </FormDialog>
 </template>
 
 <script setup>
@@ -86,7 +77,7 @@ import {RefreshRight, Search} from "@element-plus/icons-vue";
 import moment from "moment";
 import {createTag, deleteTag, getTagPage} from "@/api/admin/tag.js";
 import {showMessage, showModel} from "@/composables/util.js";
-import router from "@/router/index.js";
+import FormDialog from "@/components/FormDialog.vue";
 
 const searchTagName = ref('')
 const pickDate = ref('')
@@ -168,7 +159,7 @@ const reset = () => {
 }
 
 
-const dialogVisible = ref(false)
+const formDialogRef = ref(null)
 const formRef = ref(null)
 const form = ref({
   name: '',
@@ -191,6 +182,9 @@ const rules = {
     },
   ]
 }
+const addTagBtnClick = () => {
+  formDialogRef.value.open()
+}
 const onSubmit = () => {
   formRef.value.validate((valid) => {
     if (!valid) {
@@ -205,8 +199,8 @@ const onSubmit = () => {
           slug: '',
           remark: ''
         }
-        dialogVisible.value = false
         getTableData()
+        formDialogRef.value.close()
       } else {
         let msg = resp.msg
         showMessage(msg, 'error')
