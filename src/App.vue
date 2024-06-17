@@ -1,7 +1,11 @@
 <template>
+  <el-config-provider :locale="locale">
     <router-view></router-view>
+  </el-config-provider>
 </template>
 
-<style scoped>
-
-</style>
+<script setup>
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+// 本地化
+const locale = zhCn
+</script>
