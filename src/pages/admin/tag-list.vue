@@ -31,7 +31,7 @@
       </div>
 
       <!-- 分页列表 -->
-      <el-table :data="tableData" border stripe style="width: 100%">
+      <el-table :data="tableData" border stripe style="width: 100%" v-loading="tableLoading">
         <el-table-column prop="name" label="分类名称" width="180"/>
         <el-table-column prop="createTime" label="创建时间" width="180"/>
         <el-table-column label="操作">
@@ -125,7 +125,10 @@ const shortcuts = [
   },
 ]
 
+
+const tableLoading = ref(false)
 function getTableData() {
+  tableLoading.value = true
   getTagPage({
     pageNum: current.value,
     pageSize: size.value,
@@ -141,7 +144,9 @@ function getTableData() {
         } else {
           showMessage(resp.msg, 'error')
         }
-      })
+      }).finally(() => {
+        tableLoading.value = false
+  })
 }
 
 getTableData()
@@ -222,4 +227,5 @@ const deleteTagSubmit = row => {
     })
   })
 }
+
 </script>
