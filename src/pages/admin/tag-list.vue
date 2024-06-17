@@ -22,7 +22,7 @@
     <el-card shadow="never">
       <!-- 新增按钮 -->
       <div class="mb-5">
-        <el-button type="primary">
+        <el-button type="primary" @click="dialogVisible = true">
           <el-icon class="mr-1">
             <Plus/>
           </el-icon>
@@ -36,7 +36,7 @@
         <el-table-column prop="createTime" label="创建时间" width="180"/>
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button type="danger" size="small">
+            <el-button type="danger" size="small" @click="deleteTagSubmit(scope.row)">
               <el-icon class="mr-1">
                 <Delete/>
               </el-icon>
@@ -54,14 +54,39 @@
       </div>
     </el-card>
   </div>
+
+  <!-- 添加标签 -->
+  <el-dialog v-model="dialogVisible" title="添加标签" width="40%" :draggable="true" :close-on-click-modal="false"
+             :close-on-press-escape="false">
+    <el-form ref="formRef" :rules="rules" :model="form">
+      <el-form-item label="标签名" prop="name" label-width="120px">
+        <el-input size="large" v-model="form.name" placeholder="请输入标签名" clearable/>
+      </el-form-item>
+      <el-form-item label="slug" prop="slug" label-width="120px">
+        <el-input size="large" v-model="form.slug" placeholder="请输入 slug" clearable/>
+      </el-form-item>
+      <el-form-item label="备注" prop="remark" label-width="120px">
+        <el-input size="large" v-model="form.remark" placeholder="请确认备注" clearable/>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="onSubmit">
+                    提交
+                </el-button>
+            </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
 import {ref} from "vue";
 import {RefreshRight, Search} from "@element-plus/icons-vue";
 import moment from "moment";
-import {getTagPage} from "@/api/admin/tag.js";
-import {showMessage} from "@/composables/util.js";
+import {createTag, deleteTag, getTagPage} from "@/api/admin/tag.js";
+import {showMessage, showModel} from "@/composables/util.js";
+import router from "@/router/index.js";
 
 const searchTagName = ref('')
 const pickDate = ref('')
@@ -127,6 +152,7 @@ function getTableData() {
         }
       })
 }
+
 getTableData()
 
 const handleSizeChange = (chooseSize) => {
@@ -139,5 +165,67 @@ const reset = () => {
   pickDate.value = ''
   startDate.value = null
   endDate.value = null
+}
+
+
+const dialogVisible = ref(false)
+const formRef = ref(null)
+const form = ref({
+  name: '',
+  slug: '',
+  remark: ''
+})
+const rules = {
+  name: [
+    {
+      required: true,
+      message: '标签名不能为空',
+      tigger: 'blur'
+    }
+  ],
+  slug: [
+    {
+      required: true,
+      message: 'slug 不能为空',
+      trigger: 'blur',
+    },
+  ]
+}
+const onSubmit = () => {
+  formRef.value.validate((valid) => {
+    if (!valid) {
+      return false
+    }
+
+    createTag(form.value).then(resp => {
+      if (resp.code === 'Success') {
+        showMessage('添加成功')
+        form.value = {
+          name: '',
+          slug: '',
+          remark: ''
+        }
+        dialogVisible.value = false
+        getTableData()
+      } else {
+        let msg = resp.msg
+        showMessage(msg, 'error')
+      }
+    })
+  })
+}
+
+const deleteTagSubmit = row => {
+  showModel('是否确定要删除该标签？').then(() => {
+    deleteTag(row.slug).then(resp => {
+      if (resp.code === 'Success') {
+        showMessage('删除成功')
+        getTableData()
+      } else {
+        let msg = resp.msg
+        showMessage(msg, 'error')
+      }
+    })
+  })
 }
 </script>
