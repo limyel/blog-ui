@@ -6,7 +6,7 @@
     <template #footer>
       <span class="dialog-footer">
                 <el-button @click="dialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="submit">
+                <el-button type="primary" @click="submit" :loading="btnLoading">
                     {{ confirmText }}
                 </el-button>
             </span>
@@ -23,12 +23,6 @@ const dialogVisible = ref(false)
 const open = () => dialogVisible.value = true
 // 关闭
 const close = () => dialogVisible.value = false
-
-// 暴露给父组件
-defineExpose({
-  open,
-  close
-})
 
 // 对外暴露属性
 const props = defineProps({
@@ -50,4 +44,18 @@ const props = defineProps({
 // 对外暴露 submit 方法
 const emit = defineEmits(['submit'])
 const submit = () => emit('submit')
+
+
+const btnLoading = ref(false)
+const showBtnLoading = () => btnLoading.value = true
+const closeBtnLoading = () => btnLoading.value = false
+
+
+// 暴露方法给父组件
+defineExpose({
+  open,
+  close,
+  showBtnLoading,
+  closeBtnLoading
+})
 </script>

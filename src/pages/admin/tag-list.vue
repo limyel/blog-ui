@@ -196,6 +196,7 @@ const onSubmit = () => {
       return false
     }
 
+    formDialogRef.value.showBtnLoading()
     createTag(form.value).then(resp => {
       if (resp.code === 'Success') {
         showMessage('添加成功')
@@ -210,7 +211,7 @@ const onSubmit = () => {
         let msg = resp.msg
         showMessage(msg, 'error')
       }
-    })
+    }).finally(() => formDialogRef.value.closeBtnLoading())
   })
 }
 
