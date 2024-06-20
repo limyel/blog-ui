@@ -11,3 +11,7 @@ export function createTag(data) {
 export function deleteTag(slug) {
     return axios.get('/admin/tag/delete/' + slug)
 }
+
+export function getTagSelect() {
+    return axios.get('/admin/tag/get/select')
+}

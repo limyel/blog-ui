@@ -14,7 +14,7 @@ export function getToken() {
 
 // 存储 Token 到 Cookie
 export function setToken(token) {
-    return cookie.set(TOKEN_KEY, token)
+    return cookie.set(TOKEN_KEY, token, {path: '/'})
 }
 
 // 删除 Token

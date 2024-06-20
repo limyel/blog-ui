@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getToken} from "@/composables/cookie.js";
+import {getToken, removeToken} from "@/composables/cookie.js";
 import {showMessage} from "@/composables/util.js";
 
 const instance = axios.create({
@@ -24,6 +24,12 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
     return response.data
 }, function (error) {
+    let status = err.response.status
+    if (status === 401) {
+        removeToken()
+        location.reload()
+    }
+
     // 展示错误信息
     let errorMsg = error.response.data.msg || '请求失败'
     showMessage(errorMsg, 'error')
