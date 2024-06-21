@@ -1,14 +1,14 @@
 # 构建容器
-FROM node:18.6.0-alpine as build
+FROM node:20.6-alpine3.17 as build
 WORKDIR /app
 
-COPY package.json .
-RUN npm config set registry https://registry.npmmirror.com/ && npm install
+COPY package.json pnpm-lock.yaml ./
+RUN npm config set registry=https://registry.npmmirror.com && npm install -g pnpm && pnpm i
 COPY . /app
-RUN npm run build
+RUN pnpm run build
 
 # 生产容器
-FROM nginx:1.16.0-alpine
+FROM nginx:1.25-alpine3.18
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY --from=build /app/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
