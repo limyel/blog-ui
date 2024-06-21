@@ -1,4 +1,6 @@
 import Index from "@/pages/frontend/index.vue"
+import Archive from "@/pages/frontend/archive.vue"
+import PostList from "@/pages/frontend/post-list.vue"
 import Login from "@/pages/admin/login.vue"
 import AdminIndex from "@/pages/admin/index.vue"
 import AdminPostList from "@/pages/admin/post-list.vue"
@@ -11,9 +13,22 @@ const routes = [
     {
         path: "/",
         component: Index,
-        meta: {
-            title: "Blog 首页"
-        }
+        children: [
+            {
+                path: '/',
+                component: PostList,
+                meta: {
+                    title: "Blog 首页"
+                }
+            },
+            {
+                path: "/archive",
+                component: Archive,
+                meta: {
+                    title: "Blog 归档"
+                }
+            }
+        ]
     },
     {
         path: "/login",

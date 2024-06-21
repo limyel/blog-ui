@@ -19,9 +19,3 @@ export function getPostById(id) {
 export function updatePost(data) {
     return axios.post('/admin/post/update', data)
 }
-
-
-
-export function getPostList(params) {
-    return axios.get('/blog/post/get/list', {params})
-}
