@@ -12,7 +12,7 @@
         <div class="text-sm m-2 bg-gray-200 rounded-md p-1 shadow" :class="activeTagSlug.indexOf(tag.slug) === -1 ? '' : ' bg-blue-200'" v-for="(tag, index) in tags" :key="index">
           <a href="#"
              @click="filterTagSubmit(tag.slug)">
-            #{{ tag.name }}
+            {{ tag.name }}
             <span class="rounded-full px-2 bg-indigo-300">
               {{ tag.postNum }}
             </span>
