@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 mb-4 border border-gray-100 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
+  <div class="p-5 mb-4 border border-gray-100 rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:border-gray-700"
        v-for="(archive, index) in archiveList" :key="index">
     <time class="text-lg font-semibold text-gray-900 dark:text-white">{{archive.year}}</time>
     <ol class="relative border-s border-gray-200 dark:border-gray-700">

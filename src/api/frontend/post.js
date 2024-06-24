@@ -7,3 +7,7 @@ export function getPostList(params) {
 export function getPostArchive() {
     return axios.get('/blog/post/get/archive')
 }
+
+export function getPostDetail(slug) {
+    return axios.get('/blog/post/get/detail/' + slug)
+}

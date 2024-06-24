@@ -11,7 +11,7 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config) {
     // 请求头添加 Token
     const token = getToken()
-    if (token) {
+    if (token && config.url.startsWith('/admin')) {
         config.headers['Authorization'] = 'Bearer ' + token
     }
 

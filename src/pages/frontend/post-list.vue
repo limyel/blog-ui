@@ -1,6 +1,6 @@
 <template>
   <div class="grow">
-    <div class="p-6 mb-10 bg-gray-50 border border-gray-200 rounded-lg shadow flex flex-col">
+    <div class="p-6 mb-10 bg-gray-100 border border-gray-200 rounded-lg shadow flex flex-col">
       <div>
         <button @click="clearActiveTag" type="button"
                 class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none">
@@ -9,7 +9,7 @@
       </div>
 
       <div class="flex">
-        <div class="text-sm m-2 bg-gray-200 rounded-md p-1 shadow" :class="activeTagSlug.indexOf(tag.slug) === -1 ? '' : ' bg-blue-200'" v-for="(tag, index) in tags" :key="index">
+        <div class="text-blue-800 text-sm me-2 px-3 py-1  rounded" :class="activeTagSlug.indexOf(tag.slug) === -1 ? 'bg-blue-100 font-medium dark:bg-blue-900 dark:text-blue-300' : 'bg-pink-100 font-bold dark:bg-pink-900 dark:text-pink-300'" v-for="(tag, index) in tags" :key="index">
           <a href="#"
              @click="filterTagSubmit(tag.slug)">
             {{ tag.name }}
@@ -24,7 +24,7 @@
 
     <div class="p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
          v-for="(item, index) in postList" :key="index">
-      <a href="#">
+      <a @click="router.push('/post/' + item.slug)" href="#">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white inline hover:text-blue-600 hover:underline">
           {{ item.title }}</h5>
       </a>
@@ -115,6 +115,9 @@ import {ref} from "vue";
 import {showMessage} from "@/composables/util.js";
 import {getPostList} from "@/api/frontend/post.js";
 import {getTagAll} from "@/api/frontend/tag.js";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const total = ref(0)
 const pages = ref(1)
@@ -131,7 +134,6 @@ const getPostListSubmit = pageNo => {
     pageNum: pageNo.value,
     tags: activeTagSlug.value.join(',')
   }
-  console.log(activeTagSlug.value)
   getPostList(params).then(resp => {
     if (resp.code === 'Success') {
       postList.value = resp.data.list
