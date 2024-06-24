@@ -125,11 +125,10 @@ const getPostListSubmit = pageNo => {
     return
   }
   let params = {
-    pageNum: pageNo
+    pageNum: pageNo.value,
+    tags: activeTagSlug.value.join(',')
   }
-  if (activeTagSlug.value.length !== 0) {
-    params.tags = activeTagSlug.value
-  }
+  console.log(activeTagSlug.value)
   getPostList(params).then(resp => {
     if (resp.code === 'Success') {
       postList.value = resp.data.list
@@ -157,6 +156,7 @@ getTagAll().then(resp => {
 const filterTagSubmit = slug => {
   let slugIndex = activeTagSlug.value.indexOf(slug)
   slugIndex === -1 ? activeTagSlug.value.push(slug) : activeTagSlug.value.splice(slugIndex, 1)
+  getPostListSubmit(pageNum)
 }
 const clearActiveTag = () => {
   activeTagSlug.value = []
