@@ -7,11 +7,3 @@ export function getSetting() {
 export function updateSetting(data) {
     return axios.post('/admin/setting/update', data)
 }
-
-export function getSettingName() {
-    return axios.get('/blog/setting/get/name')
-}
-
-export function getSettingAbout() {
-    return axios.get('/blog/setting/get/about')
-}
