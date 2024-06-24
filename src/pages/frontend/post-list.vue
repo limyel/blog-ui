@@ -9,10 +9,13 @@
       </div>
 
       <div class="flex">
-        <div class="text-sm m-2" v-for="(tag, index) in tags" :key="index">
-          <a :class="activeTagSlug.indexOf(tag.slug) === -1 ? '' : 'font-bold'" href="#"
+        <div class="text-sm m-2 bg-gray-200 rounded-md p-1 shadow" :class="activeTagSlug.indexOf(tag.slug) === -1 ? '' : ' bg-blue-200'" v-for="(tag, index) in tags" :key="index">
+          <a href="#"
              @click="filterTagSubmit(tag.slug)">
             #{{ tag.name }}
+            <span class="rounded-full px-2 bg-indigo-300">
+              {{ tag.postNum }}
+            </span>
           </a>
         </div>
       </div>
@@ -160,5 +163,6 @@ const filterTagSubmit = slug => {
 }
 const clearActiveTag = () => {
   activeTagSlug.value = []
+  getPostListSubmit(pageNum)
 }
 </script>
