@@ -1,5 +1,5 @@
 <template>
-  <div class="grow col-start-2 col-span-3">
+  <div class="grow col-start-2 col-span-6">
     <div class="p-6 mb-10 bg-gray-100 border border-gray-200 rounded-lg shadow flex flex-col">
       <div>
         <button @click="clearActiveTag" type="button"

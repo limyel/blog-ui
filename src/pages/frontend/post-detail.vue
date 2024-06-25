@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-row items-start col-span-5">
-    <div class="bg-white col-span-3 mr-5 rounded-lg">
+  <div class="flex flex-row items-start grid grid-cols-12 gap-4 col-span-8">
+    <div class="bg-white col-span-9 rounded-lg">
       <div class="mb-2">
         <h2 class="text-4xl text-slate-800 font-extrabold">{{ post.title }}</h2>
       </div>
@@ -54,7 +54,7 @@
       <MdPreview :model-value="post.content" editorId="post-detail"></MdPreview>
     </div>
 
-    <div class="sticky top-[5.5rem] text-sm/[30px] w-full p-5 mb-3 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+    <div class="col-span-3 sticky top-[5.5rem] text-sm/[30px] w-full p-5 mb-3 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
       <MdCatalog @click="catalogOnClick" @active="catalogOnActive" editorId="post-detail"/>
     </div>
   </div>
