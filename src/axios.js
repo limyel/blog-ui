@@ -3,7 +3,7 @@ import {getToken, removeToken} from "@/composables/cookie.js";
 import {showMessage} from "@/composables/util.js";
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000/blog",
+    baseURL: "https://api.limyel.com/blog",
     timeout: 7000,
 })
 
