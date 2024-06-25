@@ -3,7 +3,7 @@
 
     <Header></Header>
 
-    <main class="container max-w-4xl mx-auto p-4 grow flex flex-col">
+    <main class="container max-w-5xl grid grid-cols-5 gap-4 mx-auto p-4 grow">
       <router-view></router-view>
     </main>
 

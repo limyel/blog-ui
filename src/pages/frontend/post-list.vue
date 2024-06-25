@@ -1,5 +1,5 @@
 <template>
-  <div class="grow">
+  <div class="grow col-start-2 col-span-3">
     <div class="p-6 mb-10 bg-gray-100 border border-gray-200 rounded-lg shadow flex flex-col">
       <div>
         <button @click="clearActiveTag" type="button"
@@ -65,49 +65,49 @@
       </div>
     </div>
 
+
+    <nav class="flex justify-center">
+      <ul class="flex items-center -space-x-px h-8 text-sm">
+        <!-- 上一页 -->
+        <li>
+          <a @click="getPostListSubmit(current - 1)" href="#"
+             class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+             :class="[current > 1 ? '' : 'cursor-not-allowed']"
+          >
+
+            <span class="sr-only">上一页</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+          </a>
+        </li>
+        <li v-for="(pageNo, index) in pages" :key="index">
+          <a @click="getPostListSubmit(pageNo)" href="#"
+             class="flex items-center justify-center px-4 h-10 leading-tight border  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+             :class="[pageNo === current ? 'text-blue-600 bg-blue-50 border-blue-300 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 border-gray-300 bg-white hover:bg-gray-100 hover:text-gray-700']"
+          >
+            {{ index + 1 }}
+          </a>
+        </li>
+        <!-- 下一页 -->
+        <li>
+          <a @click="getPostListSubmit(current + 1)" href="#"
+             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+             :class="[current < pages ? '' : 'cursor-not-allowed']"
+          >
+            <span class="sr-only">下一页</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
-
-  <nav class="flex justify-center">
-    <ul class="flex items-center -space-x-px h-8 text-sm">
-      <!-- 上一页 -->
-      <li>
-        <a @click="getPostListSubmit(current - 1)" href="#"
-           class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-           :class="[current > 1 ? '' : 'cursor-not-allowed']"
-        >
-
-          <span class="sr-only">上一页</span>
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-               viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" d="M5 1 1 5l4 4"/>
-          </svg>
-        </a>
-      </li>
-      <li v-for="(pageNo, index) in pages" :key="index">
-        <a @click="getPostListSubmit(pageNo)" href="#"
-           class="flex items-center justify-center px-4 h-10 leading-tight border  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-           :class="[pageNo === current ? 'text-blue-600 bg-blue-50 border-blue-300 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 border-gray-300 bg-white hover:bg-gray-100 hover:text-gray-700']"
-        >
-          {{ index + 1 }}
-        </a>
-      </li>
-      <!-- 下一页 -->
-      <li>
-        <a @click="getPostListSubmit(current + 1)" href="#"
-           class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-           :class="[current < pages ? '' : 'cursor-not-allowed']"
-        >
-          <span class="sr-only">下一页</span>
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-               viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </nav>
 </template>
 
 <script setup>
