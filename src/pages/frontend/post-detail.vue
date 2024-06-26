@@ -78,6 +78,7 @@ const post = ref({})
 getPostDetail(route.params.slug).then(resp => {
   if (resp.code === 'Success') {
     post.value = resp.data
+    document.title = post.value.title
   }
 })
 
