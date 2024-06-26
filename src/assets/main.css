@@ -19,3 +19,6 @@ body {
 .md-editor-preview li {
   list-style: disc;
 }
+.md-editor-preview h2 {
+  border-bottom: 1px solid #d9dee3 !important;
+}
