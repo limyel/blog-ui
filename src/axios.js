@@ -22,6 +22,11 @@ instance.interceptors.request.use(function (config) {
 
 // 响应拦截器
 instance.interceptors.response.use(function (response) {
+    if (response.data.code.startsWith('AuthFailure')) {
+        showMessage(response.data.msg, 'error')
+        removeToken()
+        location.reload()
+    }
     return response.data
 }, function (error) {
     let status = err.response.status
