@@ -32,6 +32,7 @@
 
       <!-- 分页列表 -->
       <el-table :data="tableData" border stripe style="width: 100%" v-loading="tableLoading">
+        <el-table-column prop="id" label="ID" width="180"/>
         <el-table-column prop="title" label="标题" width="180"/>
         <el-table-column prop="status" label="状态" width="180"/>
         <el-table-column prop="top" label="置顶" width="180"/>
@@ -44,6 +45,11 @@
               </el-icon>
               编辑
             </el-button>
+            <el-button size="small" @click="goPostDetailPage(scope.row.slug)">
+              <el-icon class="mr-1">
+                <View />
+              </el-icon>
+              预览</el-button>
             <el-button type="danger" size="small" @click="deletePostSubmit(scope.row)">
               <el-icon class="mr-1">
                 <Delete/>
@@ -130,6 +136,9 @@ import {showMessage, showModel} from "@/composables/util.js";
 import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import {getTagSelect} from "@/api/admin/tag.js";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const searchPostTitle = ref('')
 const pickDate = ref('')
@@ -351,6 +360,13 @@ function closePostEditor() {
     top: false
   }
   isPostCreateEditorShow.value = false
+}
+
+
+// 跳转文章详情
+const goPostDetailPage = (slug) => {
+  console.log(slug)
+  router.push('/post/' + slug)
 }
 </script>
 
