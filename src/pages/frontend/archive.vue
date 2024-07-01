@@ -7,7 +7,7 @@
         <li class="mb-3 ms-4" v-for="(post, index) in archive.posts" :key="index">
           <div
               class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-          <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ post.createTime }}
+          <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ showMonthDay(post.createTime) }}
           </time>
           <div>
             <a href="#">
@@ -32,6 +32,7 @@
 import {getPostArchive} from "@/api/frontend/post.js";
 import {showMessage} from "@/composables/util.js";
 import {ref} from "vue";
+import {showMonthDay} from "@/composables/datetime-format.js";
 
 const archiveList = ref([])
 getPostArchive().then(resp => {

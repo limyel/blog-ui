@@ -9,7 +9,9 @@
       </div>
 
       <div class="flex">
-        <div class="text-blue-800 text-sm me-2 px-3 py-1  rounded" :class="activeTagSlug.indexOf(tag.slug) === -1 ? 'bg-blue-100 font-medium dark:bg-blue-900 dark:text-blue-300' : 'bg-pink-100 font-bold dark:bg-pink-900 dark:text-pink-300'" v-for="(tag, index) in tags" :key="index">
+        <div class="text-blue-800 text-sm me-2 px-3 py-1  rounded"
+             :class="activeTagSlug.indexOf(tag.slug) === -1 ? 'bg-blue-100 font-medium dark:bg-blue-900 dark:text-blue-300' : 'bg-pink-100 font-bold dark:bg-pink-900 dark:text-pink-300'"
+             v-for="(tag, index) in tags" :key="index">
           <a href="#"
              @click="filterTagSubmit(tag.slug)">
             {{ tag.name }}
@@ -37,7 +39,7 @@
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
-            <p>{{ item.createTime }}</p>
+            <p>{{ showTimeDetail(item.createTime) }}</p>
           </div>
           <div class="mr-3 flex md:items-center md:justify-center mb-2">
             <div class="mr-2" v-for="(tag, index) in item.tags" :key="index">
@@ -58,7 +60,7 @@
         </div>
 
         <div>
-          <a class="text-sm text-blue-600 hover:underline" href="#">
+          <a @click="router.push('/post/' + item.slug)" class="text-sm text-blue-600 hover:underline" href="#">
             阅读全文
           </a>
         </div>
@@ -116,6 +118,7 @@ import {showMessage} from "@/composables/util.js";
 import {getPostList} from "@/api/frontend/post.js";
 import {getTagAll} from "@/api/frontend/tag.js";
 import {useRouter} from "vue-router";
+import {showTimeDetail} from "@/composables/datetime-format.js";
 
 const router = useRouter()
 
