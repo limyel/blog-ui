@@ -15,9 +15,9 @@
           <div id="create-time-tooltip" role="tooltip"
                class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
             创建时间
-            <div class="tooltip-arrow" data-popper-arrow></div>
+            <div class="tooltip-arrow" data-popper-arrow data-popper-placement></div>
           </div>
-          {{ post.createTime }}
+          {{ showTimeDetail(post.createTime) }}
         </div>
         <div class="flex flex-row items-center leading-6">
           <svg data-tooltip-target="update-time-tooltip" data-tooltip-placement="bottom" class="mr-1" aria-hidden="true"
@@ -31,7 +31,7 @@
             更新时间
             <div class="tooltip-arrow" data-popper-arrow></div>
           </div>
-          {{ post.updateTime }}
+          {{ showTimeDetail(post.updateTime) }}
         </div>
         <div class="flex flex-row items-center leading-6">
           <svg class="mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -69,7 +69,7 @@ import {ref} from "vue";
 import {MdPreview, MdCatalog} from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import ScrollToTopButton from "@/layout/frontend/components/ScrollToTopButton.vue";
-import Toc from "@/layout/frontend/components/Toc.vue";
+import {showTimeDetail} from "@/composables/datetime-format.js";
 
 const route = useRoute()
 
