@@ -137,7 +137,7 @@ function getTableData() {
     name: searchTagName.value
   })
       .then(resp => {
-        if (resp.code === 'Success') {
+        if (resp.code === 0) {
           tableData.value = resp.data.list
           current.value = resp.data.current
           total.value = resp.data.total
@@ -198,7 +198,7 @@ const onSubmit = () => {
 
     formDialogRef.value.showBtnLoading()
     createTag(form.value).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('添加成功')
         form.value = {
           name: '',
@@ -218,7 +218,7 @@ const onSubmit = () => {
 const deleteTagSubmit = row => {
   showModel('是否确定要删除该标签？').then(() => {
     deleteTag(row.slug).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('删除成功')
         getTableData()
       } else {

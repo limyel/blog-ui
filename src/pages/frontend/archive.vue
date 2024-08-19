@@ -36,7 +36,7 @@ import {showMonthDay} from "@/composables/datetime-format.js";
 
 const archiveList = ref([])
 getPostArchive().then(resp => {
-  if (resp.code === 'Success') {
+  if (resp.code === 0) {
     archiveList.value = resp.data
   } else {
     showMessage(resp.msg, 'error')

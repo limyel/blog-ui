@@ -39,6 +39,11 @@ const menus = [
     'path': '/admin/tag/list',
   },
   {
+    'name': '项目管理',
+    'icon': 'Promotion',
+    'path': '/admin/project/list'
+  },
+  {
     'name': '博客设置',
     'icon': 'Setting',
     'path': '/admin/blog/setting',

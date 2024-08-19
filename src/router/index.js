@@ -8,6 +8,8 @@ import AdminIndex from '@/pages/admin/index.vue'
 import AdminPostList from '@/pages/admin/post-list.vue'
 import AdminTagList from '@/pages/admin/tag-list.vue'
 import AdminBlogSetting from '@/pages/admin/blog-setting.vue'
+import ProjectList from "@/pages/frontend/project-list.vue";
+import AdminProjectList from "@/pages/admin/project-list.vue";
 import Admin from '@/layout/admin/admin.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 
@@ -33,6 +35,10 @@ const routes = [
             {
                 path: '/post/:slug',
                 component: PostDetail
+            },
+            {
+                path: '/project',
+                component: ProjectList
             },
             {
                 path: '/about',
@@ -73,6 +79,13 @@ const routes = [
                 component: AdminTagList,
                 meta: {
                     title: '标签管理'
+                }
+            },
+            {
+                path: '/admin/project/list',
+                component: AdminProjectList,
+                meta: {
+                    title: '项目管理'
                 }
             },
             {

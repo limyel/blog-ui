@@ -68,15 +68,9 @@
               </a>
             </li>
             <li>
-              <a href="#"
-                 class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                闲话
-              </a>
-            </li>
-            <li>
-              <a href="#"
-                 class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                评分
+              <a @click="router.push('/project')" href="#"
+                 :class="route.path === '/project' ? activeNav : unactiveNav">
+                项目
               </a>
             </li>
             <li>
@@ -106,7 +100,7 @@ const unactiveNav = 'block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-10
 
 const blogName = ref('')
 getSettingName().then(resp => {
-  if (resp.code === 'Success') {
+  if (resp.code === 0) {
     blogName.value = resp.data.name
   } else {
     showMessage(resp.msg, 'error')

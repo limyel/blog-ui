@@ -175,7 +175,7 @@ const onSubmit = () => {
     }
 
     updatePassword(form.value).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('密码重置成功，请重新登录！')
         userStore.logout()
         dialogVisible.value = false

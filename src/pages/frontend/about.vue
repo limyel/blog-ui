@@ -12,7 +12,7 @@ import {MdPreview} from 'md-editor-v3'
 const about = ref('')
 
 getSettingAbout().then(resp => {
-  if (resp.code === 'Success') {
+  if (resp.code === 0) {
     about.value = resp.data.about
   }
 })

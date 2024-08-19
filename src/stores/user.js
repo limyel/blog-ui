@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
     function setCurrentUserInfo() {
         getCurrentUserInfo().then(resp => {
             // todo 在路由守卫处理
-            if (resp.code === 'Success') {
+            if (resp.code === 0) {
                 userInfo.value = resp.data
             }
         })

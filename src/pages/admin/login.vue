@@ -81,7 +81,7 @@ const onSubmit = () => {
     loading.value = true
 
     login(form.username, form.password).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('登录成功')
 
         // 存储 Token

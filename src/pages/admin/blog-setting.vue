@@ -54,7 +54,7 @@ const onSubmit = () => {
 
     btnLoading.value = true
     updateSetting(form.value).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('更新成功')
         initSetting()
       } else {
@@ -69,7 +69,7 @@ const onSubmit = () => {
 
 function initSetting() {
   getSetting().then(resp => {
-    if (resp.code === 'Success') {
+    if (resp.code === 0) {
       form.value = resp.data
     }
   })

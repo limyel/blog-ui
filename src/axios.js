@@ -22,7 +22,7 @@ instance.interceptors.request.use(function (config) {
 
 // 响应拦截器
 instance.interceptors.response.use(function (response) {
-    if (response.data.code.startsWith('AuthFailure')) {
+    if (response.data.code === 401) {
         showMessage(response.data.msg, 'error')
         removeToken()
         location.reload()

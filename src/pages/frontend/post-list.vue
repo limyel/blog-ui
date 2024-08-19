@@ -147,7 +147,7 @@ const getPostListSubmit = pageNo => {
     tags: activeTagSlug.value.join(',')
   }
   getPostList(params).then(resp => {
-    if (resp.code === 'Success') {
+    if (resp.code === 0) {
       postList.value = resp.data.list
       total.value = resp.data.total
       pages.value = resp.data.pages
@@ -162,7 +162,7 @@ getPostListSubmit(pageNum.value)
 
 const tags = ref([])
 getTagAll().then(resp => {
-  if (resp.code === 'Success') {
+  if (resp.code === 0) {
     tags.value = resp.data
   } else {
     showMessage(resp.msg, 'error')

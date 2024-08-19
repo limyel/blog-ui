@@ -202,7 +202,7 @@ function getTableData() {
     endTime: endDate.value,
     title: searchPostTitle.value
   }).then(resp => {
-    if (resp.code === 'Success') {
+    if (resp.code === 0) {
       tableData.value = resp.data.list
       current.value = resp.data.current
       total.value = resp.data.total
@@ -224,7 +224,7 @@ const handleSizeChange = (chooseSize) => {
 const deletePostSubmit = row => {
   showModel('是否确定要删除该文章？').then(() => {
     deletePost(row.id).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('删除成功')
         getTableData()
       } else {
@@ -277,7 +277,7 @@ const rules = {
 
 const tags = ref([])
 getTagSelect().then(resp => {
-  if (resp.code === 'Success') {
+  if (resp.code === 0) {
     tags.value = resp.data
   } else {
     showMessage(resp.msg, 'error')
@@ -293,7 +293,7 @@ const createPostSubmit = () => {
 
   if (form.value.id === null) {
     createPost(form.value).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('发布成功')
         isPostCreateEditorShow.value = false
 
@@ -314,7 +314,7 @@ const createPostSubmit = () => {
     })
   } else {
     updatePost(form.value).then(resp => {
-      if (resp.code === 'Success') {
+      if (resp.code === 0) {
         showMessage('更新成功')
         isPostCreateEditorShow.value = false
 
@@ -340,7 +340,7 @@ const createPostSubmit = () => {
 
 function showPostUpdateEditor(row) {
   getPostById(row.id).then(resp => {
-    if (resp.code === 'Success') {
+    if (resp.code === 0) {
       form.value = resp.data
       isPostCreateEditorShow.value = true
     } else {
