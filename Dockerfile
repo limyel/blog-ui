@@ -1,5 +1,5 @@
 # 构建容器
-FROM atomhub.openatom.cn/amd64/node:20.6-alpine3.17 as build
+FROM atomhub.openatom.cn/amd64/node:20.6-alpine as build
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
